@@ -25,6 +25,7 @@
 window.el = (function () {
 	var el = {
 		create: function (tagName, attrs) {
+		  attrs = typeof attrs !== 'undefined' ? attrs : {};
 			var el = document.createElement(tagName);
 			if (attrs.content) {
 				if(typeof(attrs.content) == 'object') {

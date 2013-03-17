@@ -25,6 +25,11 @@ Create data-attributes (or any other attributes)
     el.create('div', {'data-action':'submit', 'id':'myId'})
     => <div data-action="submit" id="myId"></div>
 
+### Helper Methods
+
+[modsognir](https://github.com/modsognir) has introduced helper methods:
+
+    el.img()
 
 ## Contributing
 
