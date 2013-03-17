@@ -40,7 +40,22 @@ window.el = (function () {
 				}
 			}
 			return el;
-		},		
+		},
+		img: function(attrs) {
+			return this.create('img', attrs);
+		},
+		a: function(attrs) {
+			return this.create('a', attrs);
+		},
+		div: function(attrs) {
+			return this.create('div', attrs);
+		},
+		p: function(attrs) {
+			return this.create('p', attrs);
+		},
+		input: function(attrs) {
+			return this.create('input', attrs);
+		}
 	};
 
 	return el;
