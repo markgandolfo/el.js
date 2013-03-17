@@ -1,4 +1,4 @@
-## EL.js
+## el.js
 
 Simple Javascript library used to create elements. 
 
