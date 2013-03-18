@@ -11,8 +11,19 @@ Create a simple element without attributes
 
 Create an element with content inside and a class
 
-    el.create('a', {'class':'content', 'href':'http://markgandolfo.com', 'content':'Mark Gandolfo'})
-    => <a class="content" href="http://markgandolfo.com">Mark Gandolfo</a>
+		el.create('a', {'class':'content', 'href':'http://markgandolfo.com', 'content':'Mark Gandolfo'})
+		=> <a class="content" href="http://markgandolfo.com">Mark Gandolfo</a>
+
+You could even use selectors in the initial name to quick create with id's and classes
+
+    el.create('div#myId.content')
+    => <div id="myId" class="content"></div>
+
+    el.create('div.row')
+    => <div class="row"></div>
+    
+    el.create('div.row', {'id:myId', 'content':'Some content in your div'})
+    => <div id="myId" class="row">Some content in your div</div>
 
 Create a child and parent element
 
@@ -24,6 +35,7 @@ Create data-attributes (or any other attributes)
 
     el.create('div', {'data-action':'submit', 'id':'myId'})
     => <div data-action="submit" id="myId"></div>
+
 
 ### Helper Methods
 
