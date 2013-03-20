@@ -61,7 +61,7 @@ test("Test nested tags", function() {
 });
 
 test("Test multiple children", function() {
-  var list = el.create(
+  var actual = el.create(
     'ul',
     {'class': 'someclass'},
     [
@@ -71,8 +71,19 @@ test("Test multiple children", function() {
     ]
   );
 
-  var expected = '<ul class="someclass"><li class="active">first</li><li>second</li><li>third</li></ul>';
+  var expected = document.createElement('ul');
+  expected.className = "someclass";
 
-  equal(list.outerHTML, expected, 'List with nested elements created')
+  var node = expected.appendChild(document.createElement('li'));
+  node.className = "active";
+  node.innerHTML = "first";
+
+  node = expected.appendChild(document.createElement('li'));
+  node.innerHTML = "second";
+
+  node = expected.appendChild(document.createElement('li'));
+  node.innerHTML = "third";
+
+  equal(actual.outerHTML, expected.outerHTML, 'List with nested elements created')
 
 });
