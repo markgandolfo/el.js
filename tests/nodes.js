@@ -47,15 +47,18 @@ test("Create an element with selector elements and watch them merge", function()
 
 test("Test nested tags", function() {
   var img = el.create('img', {'src':'http://placekitten.com/200/300'})
-  var expected = el.create('a', {'href':'https://github.com/markgandolfo/el.js', 'content':img})
+  var actual = el.create('a', {'href':'https://github.com/markgandolfo/el.js', 'content':img})
 
-  var imgActual = document.createElement('img')
-  var actual = document.createElement('a')
+  var imgExpected = document.createElement('img')
+  var expected = document.createElement('a')
 
-  imgActual.src = 'http://placekitten.com/200/300'
-  actual.href = 'https://github.com/markgandolfo/el.js'
-  actual.appendChild(imgActual);
+  imgExpected.src = 'http://placekitten.com/200/300'
+  expected.href = 'https://github.com/markgandolfo/el.js'
+  expected.appendChild(imgExpected);
 
-  equal(expected.innerHTML, '<img src=\"http://placekitten.com/200/300\">', 'Child object was placed correctly inside of the parent')
-  equal(expected.outerHTML, '<a href=\"https://github.com/markgandolfo/el.js\"><img src=\"http://placekitten.com/200/300\"></a>', 'Full nested elements worked')
+  equal(actual.innerHTML, expected.innerHTML, 'Child object was placed correctly inside of the parent')
+  equal(actual.outerHTML, expected.outerHTML, 'Full nested elements worked')
 });	
+
+
+

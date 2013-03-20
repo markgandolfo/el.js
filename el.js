@@ -1,27 +1,12 @@
 /**
- * Create elements!
- * @author markgandolfo / http://markgandolfo.com/
- *
- * Examples:
- * 
- * Create a simple element without attributes
- * el.create('div')
- * => <div></div>
- *
- * Create an element with content inside and a class
- * el.create('a', {'class':'content', 'href':'http://markgandolfo.com', 'content':'Mark Gandolfo'})
- * => <a class="content" href="http://markgandolfo.com">Mark Gandolfo</a>
- * 
- * Create a child and parent element
- * img = el.create('img', {'src':'http://placekitten.com/200/300'})
- * el.create('a', {'href':'http://markgandolfo.com', 'content':img})
- * => <a href="http://markgandolfo.com"><img src="http://placekitten.com/200/300" /></a>
- *
- * Create data-attributes (or any other attributes)
- * el.create('div', {'data-action':'submit', 'id':'myId'})
- * => <div data-action="submit" id="myId"></div>
- *
- */
+* el.js v0.3 - A JavaScript Node Creation Tool
+*
+* https://github.com/markgandolfo/el.js
+*
+* Copyright 2013 Mark Gandolfo and other contributors
+* Released under the MIT license.
+* http://en.wikipedia.org/wiki/MIT_License
+*/
 window.el = (function () {
   var el = {
     
@@ -93,8 +78,13 @@ window.el = (function () {
     
     input: function(attrs) {
       return this.create('input', attrs);
+    },
+    
+    c: function(tagName, attrs) {
+      return this.create(tagName, attrs);
     }
   };
 
   return el;
 }());
+

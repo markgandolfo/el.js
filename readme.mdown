@@ -42,6 +42,7 @@ Create data-attributes (or any other attributes)
 [modsognir](https://github.com/modsognir) has introduced helper methods:
 These can be used standalone, or you could pass attributes in as an argument
 
+    el.c() - This is an alias of el.create()
     el.div()
     el.p()
     el.input()
