@@ -22,7 +22,7 @@ You could even use selectors in the initial name to quick create with id's and c
     el.create('div.row')
     => <div class="row"></div>
     
-    el.create('div.row', {'id:myId', 'content':'Some content in your div'})
+    el.create('div.row', {'id':'myId', 'content':'Some content in your div'})
     => <div id="myId" class="row">Some content in your div</div>
 
 Create a child and parent element
