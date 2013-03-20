@@ -62,28 +62,28 @@ window.el = (function () {
     },
 
     // vanity methods
-    img: function(attrs, child) {
+    img: function(attrs) {
       return this.create('img', attrs);
     },
     
-    a: function(attrs) {
-      return this.create('a', attrs);
+    a: function(attrs, child) {
+      return this.create('a', attrs, child);
     },
     
-    div: function(attrs) {
-      return this.create('div', attrs);
+    div: function(attrs, child) {
+      return this.create('div', attrs, child);
     },
     
-    p: function(attrs) {
-      return this.create('p', attrs);
+    p: function(attrs, child) {
+      return this.create('p', attrs, child);
     },
     
     input: function(attrs) {
       return this.create('input', attrs);
     },
     
-    c: function(tagName, attrs) {
-      return this.create(tagName, attrs);
+    c: function(tagName, attrs, child) {
+      return this.create(tagName, attrs, child);
     }
   };
 
