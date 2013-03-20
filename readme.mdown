@@ -11,8 +11,8 @@ Create a simple element without attributes
 
 Create an element with content inside and a class
 
-		el.create('a', {'class':'content', 'href':'http://markgandolfo.com', 'content':'Mark Gandolfo'})
-		=> <a class="content" href="http://markgandolfo.com">Mark Gandolfo</a>
+    el.create('a', {'class':'content', 'href':'http://markgandolfo.com', 'content':'Mark Gandolfo'})
+    => <a class="content" href="http://markgandolfo.com">Mark Gandolfo</a>
 
 You could even use selectors in the initial name to quick create with id's and classes
 
