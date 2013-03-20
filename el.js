@@ -8,16 +8,19 @@
 * http://en.wikipedia.org/wiki/MIT_License
 */
 window.el = (function () {
-  var el = function(tagName, attrs) {
+  var el = function(tagName, attrs, child) {
     // Pattern to match id & class names
     var pattern = /([a-z]+|#[\w-\d]+|\.[\w\d-]+)/g
 
     // does the user pass attributes in, if not set an empty object up
     var attrs = typeof attrs !== 'undefined' ? attrs : {};
+    var child = typeof child !== 'undefined' ? child : [];
+    child = child instanceof Array ? child : [child];
 
     // run the pattern over the tagname an attempt to pull out class & id attributes
     // shift the first record out as it's the element name
     matched = tagName.match(pattern);
+    console.log(tagName);
     tagName = matched[0];
     matched.shift();
     
@@ -40,23 +43,22 @@ window.el = (function () {
     }
 
     // create the element
-    var element = document.createElement(tagName);
-    if (attrs.content) {
-      if(typeof(attrs.content) == 'object') {
-        element.appendChild(attrs.content);
-      } else {
-        element.innerHTML = attrs.content;
-      }
-      delete attrs.content;
+    var el = document.createElement(tagName);
+    for(var i = 0; i < child.length; i += 1) {
+       if(typeof(child[i]) == 'object') {
+          el.appendChild(child[i]);
+       } else {
+          el.innerHTML = child[i];
+       }
     }
+
     for (var key in attrs) {
       if (attrs.hasOwnProperty(key)) {
-        element.setAttribute(key, attrs[key]);
+        el.setAttribute(key, attrs[key]);
       }
     }
-    return element;
-
-  };
+  return el;
+};
   
   // alias
   el.create = el.c = el;
@@ -66,19 +68,19 @@ window.el = (function () {
     return this.create('img', attrs);
   };
     
-  el.a = function(attrs) {
+  el.a = function(attrs, child) {
     return this.create('a', attrs);
   };
   
-  el.div = function(attrs) {
+  el.div = function(attrs, child) {
     return this.create('div', attrs);
   };
   
-  el.p = function(attrs) {
+  el.p = function(attrs, child) {
     return this.create('p', attrs);
   };
   
-  el.input = function(attrs) {
+  el.input = function(attrs, child) {
     return this.create('input', attrs);
   };
 

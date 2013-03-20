@@ -9,7 +9,7 @@ test("Creating a basic element", function() {
 });
 
 test("Create an element with mixed attributes", function() {
-  var actual = el.create('a', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow', 'content':'el.js ftw'})
+  var actual = el.create('a', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow'}, 'el.js ftw')
   var expected = document.createElement('a')
   expected.className = 'my classes'
   expected.id = 'myId'
@@ -28,7 +28,7 @@ test("Create an element with mixed attributes", function() {
 });
 
 test("Create an element with selector elements and watch them merge", function() {
-  var actual = el.create('a#my2ndId.mySecond-class', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow', 'content':'el.js ftw'})
+  var actual = el.create('a#my2ndId.mySecond-class', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow'}, 'el.js ftw')
   var expected = document.createElement('a')
   expected.className = 'my classes mySecond-class'
   expected.id = 'myId my2ndId'
@@ -47,7 +47,7 @@ test("Create an element with selector elements and watch them merge", function()
 
 test("Test nested tags", function() {
   var img = el.create('img', {'src':'http://placekitten.com/200/300'})
-  var actual = el.create('a', {'href':'https://github.com/markgandolfo/el.js', 'content':img})
+  var actual = el.create('a', {'href':'https://github.com/markgandolfo/el.js'}, img)
 
   var imgExpected = document.createElement('img')
   var expected = document.createElement('a')
@@ -58,7 +58,32 @@ test("Test nested tags", function() {
 
   equal(actual.innerHTML, expected.innerHTML, 'Child object was placed correctly inside of the parent')
   equal(actual.outerHTML, expected.outerHTML, 'Full nested elements worked')
-});	
+});
 
+test('el without the .create', function() {
+  var actual = el('img', {'src':'http://placekitten.com/200/300'})
+  var expected = document.createElement('img')
+  expected.src = 'http://placekitten.com/200/300'
 
+  equal(actual.tagName, expected.tagName, 'tag names are the same')
+  equal(actual.innerHTML, expected.innerHTML, 'Child object was placed correctly inside of the parent')
+  equal(actual.outerHTML, expected.outerHTML, 'Full nested elements worked')
+  
+});
 
+test("Test multiple children", function() {
+  var list = el.create(
+    'ul',
+    {'class': 'someclass'},
+    [
+      el.create('li', {"class": "active"}, "first"),
+      el.create('li', null, "second"),
+      el.create('li', null, "third")
+    ]
+  );
+
+  var expected = '<ul class="someclass"><li class="active">first</li><li>second</li><li>third</li></ul>';
+
+  equal(list.outerHTML, expected, 'List with nested elements created')
+
+});
