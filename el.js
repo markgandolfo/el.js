@@ -8,12 +8,15 @@
 * http://en.wikipedia.org/wiki/MIT_License
 */
 window.el = (function () {
-  var el = function(tagName, attrs) {
+
+  var el = function(tagName, attrs, child) {
     // Pattern to match id & class names
     var pattern = /([a-z]+|#[\w-\d]+|\.[\w\d-]+)/g
 
     // does the user pass attributes in, if not set an empty object up
     var attrs = typeof attrs !== 'undefined' ? attrs : {};
+    var child = typeof child !== 'undefined' ? child : [];
+    child = child instanceof Array ? child : [child];
 
     // run the pattern over the tagname an attempt to pull out class & id attributes
     // shift the first record out as it's the element name
@@ -41,14 +44,14 @@ window.el = (function () {
 
     // create the element
     var element = document.createElement(tagName);
-    if (attrs.content) {
-      if(typeof(attrs.content) == 'object') {
-        element.appendChild(attrs.content);
+    for(var i = 0; i < child.length; i += 1) {
+      if(typeof(child[i]) == 'object') {
+        element.appendChild(child[i]);
       } else {
-        element.innerHTML = attrs.content;
+        element.innerHTML = child[i];
       }
-      delete attrs.content;
     }
+
     for (var key in attrs) {
       if (attrs.hasOwnProperty(key)) {
         element.setAttribute(key, attrs[key]);
