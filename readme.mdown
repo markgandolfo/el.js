@@ -38,8 +38,6 @@ Create data-attributes (or any other attributes)
 
 
 ### Helper Methods
-
-[modsognir](https://github.com/modsognir) has introduced helper methods:
 These can be used standalone, or you could pass attributes in as an argument
 
     el.c() - This is an alias of el.create()
@@ -48,6 +46,9 @@ These can be used standalone, or you could pass attributes in as an argument
     el.input()
     el.img({'src':'http://placekitten.com/200/300'})
     el.a({'src':'http://placekitten.com/200/300'})
+
+## Contributors
+[modsognir](https://github.com/modsognir)
 
 ## Contributing
 
