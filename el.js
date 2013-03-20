@@ -10,12 +10,14 @@
 window.el = (function () {
   var el = {
     
-    create: function (tagName, attrs) {
+    create: function (tagName, attrs, child) {
       // Pattern to match id & class names
       var pattern = /([a-z]+|#[\w-\d]+|\.[\w\d-]+)/g
 
       // does the user pass attributes in, if not set an empty object up
       var attrs = typeof attrs !== 'undefined' ? attrs : {};
+      var child = typeof child !== 'undefined' ? child : [];
+      child = child instanceof Array ? child : [child];
 
       // run the pattern over the tagname an attempt to pull out class & id attributes
       // shift the first record out as it's the element name
@@ -43,14 +45,14 @@ window.el = (function () {
 
       // create the element
       var el = document.createElement(tagName);
-      if (attrs.content) {
-        if(typeof(attrs.content) == 'object') {
-          el.appendChild(attrs.content);
-        } else {
-          el.innerHTML = attrs.content;
-        }
-        delete attrs.content;
+      for(var i = 0; i < child.length; i += 1) {
+         if(typeof(child[i]) == 'object') {
+            el.appendChild(child[i]);
+         } else {
+            el.innerHTML = child[i];
+         }
       }
+
       for (var key in attrs) {
         if (attrs.hasOwnProperty(key)) {
           el.setAttribute(key, attrs[key]);
@@ -60,7 +62,7 @@ window.el = (function () {
     },
 
     // vanity methods
-    img: function(attrs) {
+    img: function(attrs, child) {
       return this.create('img', attrs);
     },
     
