@@ -12,9 +12,20 @@ window.el = (function () {
     // Pattern to match id & class names
     var pattern = /([a-z]+|#[\w-\d]+|\.[\w\d-]+)/g
 
+    if(arguments.length === 2) {
+      if(attrs instanceof Array 
+      || typeof attrs === 'function' 
+      || typeof attrs === 'string'
+      || attrs.constructor !== Object
+      ) {
+        child = attrs;
+        attrs = undefined;
+      }
+      
+    }
     // does the user pass attributes in, if not set an empty object up
-    var attrs = typeof attrs !== 'undefined' ? attrs : {};
-    var child = typeof child !== 'undefined' ? child : [];
+    attrs = typeof attrs !== 'undefined' ? attrs : {};
+    child = typeof child !== 'undefined' ? child : [];
     child = child instanceof Array ? child : [child];
 
     // run the pattern over the tagname an attempt to pull out class & id attributes

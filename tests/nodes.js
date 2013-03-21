@@ -168,3 +168,41 @@ asyncTest('Test async content provider function 2', function() {
   ]);
   setTimeout(start, 0);
 });
+
+test('Variadic create with one arg', function() {
+  var actual, expected;
+  actual = el('div');
+  expected = '<div></div>';
+  
+  equal(actual.outerHTML, expected, 'empty div craeted');
+});
+
+test('Variadic create with two args', function() {
+  var actual, expected;
+  actual = el('div', {id: 'someId'});
+  expected = '<div id="someId"></div>';
+  
+  equal(actual.outerHTML, expected, 'div with id created');
+  
+  actual = el('div', el('span'));
+  expected = '<div><span></span></div>';
+  
+  equal(actual.outerHTML, expected, 'div with one span created'); 
+  
+  actual = el('div', [el('span'), el('span')]);
+  expected = '<div><span></span><span></span></div>';
+  
+  equal(actual.outerHTML, expected, 'div with two spans created');
+ 
+  actual = el('div', function() { return el('span'); });
+  expected = '<div><span></span></div>';
+  
+  equal(actual.outerHTML, expected, 'div with one span from callback created');
+  
+ 
+  actual = el('div', function(done) { done(el('span')); });
+  expected = '<div><span></span></div>';
+  
+  equal(actual.outerHTML, expected, 'div with one span from done callback created');  
+  
+});
