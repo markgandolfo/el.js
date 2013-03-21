@@ -45,11 +45,32 @@ window.el = (function () {
     // create the element
     var el = document.createElement(tagName);
     for(var i = 0; i < child.length; i += 1) {
-       if(typeof(child[i]) == 'object') {
-          el.appendChild(child[i]);
-       } else {
-          el.innerHTML = child[i];
-       }
+      (function(child){
+        switch(typeof child) {
+          case 'object':
+            el.appendChild(child);
+            break;
+          case 'function':
+            var discardDoneCallbackResult = false;
+            var doneCallback = function doneCallback(content) {
+              if (!discardDoneCallbackResult) {
+                el.appendChild(content);
+                console.log(el, content);
+              }
+            }
+            var result = child.apply(null, [doneCallback])
+            if(typeof result != 'undefined') {
+              discardDoneCallbackResult = true;
+              el.appendChild(result);
+            }
+            break;
+          case 'string':
+            el.appendChild(document.createTextNode(child));
+          default:
+            //???
+        }
+      }(child[i]));
+      
     }
 
     for (var key in attrs) {
