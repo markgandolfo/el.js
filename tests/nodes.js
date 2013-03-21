@@ -87,3 +87,84 @@ test("Test multiple children", function() {
   equal(list.outerHTML, expected, 'List with nested elements created')
 
 });
+
+test("Test function as a content provider", function() {
+
+  var actual, expected;
+  actual = el.create('div', {}, function() {
+    return el('span');
+  });
+
+  expected = '<div><span></span></div>';
+
+  equal(actual.outerHTML, expected, 'Content created with sync callback');
+  
+  actual = el.create('div', {}, function(done) {
+    done(el('span'));
+  });
+
+  expected = '<div><span></span></div>';
+
+  equal(actual.outerHTML, expected, 'Content created with async callback');
+  
+  actual = el.create('div', {}, [
+    function(done) {
+      done(el('span.fromAsyncCallback'));
+    },
+    
+    function(done) {
+      return el('span', {'class': 'fromCallback'});
+    }, 
+    el('span.fromLiteral'), 
+    'plain text content'
+  ]);
+
+  expected = '<div><span class=\"fromAsyncCallback\"></span><span class=\"fromCallback\"></span><span class=\"fromLiteral\"></span>plain text content</div>';
+  equal(actual.outerHTML, expected, 'Content created with mixed content providers');
+
+});
+
+asyncTest('Test async content provider function', function() {
+  var actual, expected;
+  expected = '<div><span class="fromAsyncCallback"></span><span class="fromCallback"></span><span class="fromLiteral"></span>plain text content<span class="fromTimeoutAsyncCallback"></span></div>';
+  actual = el.create('div', {}, [
+    function(done) {
+      done(el('span.fromAsyncCallback'));
+    },
+    function(done) {
+      setTimeout(function() {
+        done(el('span.fromTimeoutAsyncCallback'));
+        
+        equal(actual.outerHTML, expected, 'Content created with mixed content providers');
+        start();
+        
+      }, 0);
+    },
+    function(done) {
+      return el('span', {'class': 'fromCallback'});
+    }, 
+    el('span.fromLiteral'), 
+    'plain text content'
+  ]);
+
+
+});
+
+asyncTest('Test async content provider function 2', function() {
+  var actual, expected;
+  expected = '<div><span class="one"></span><span class="three"></span></div>';
+
+  actual = el.create('div', {}, [
+    function(){
+      return el('span.one');
+    },
+    function(done){
+      setTimeout(function(){
+        done(el('span.two'));
+        equal(actual.outerHTML, expected, 'Suppresed doneCallback with returned result');
+      }, 0);
+      return el('span.three');
+    }
+  ]);
+  setTimeout(start, 0);
+});
