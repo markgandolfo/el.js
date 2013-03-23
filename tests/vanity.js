@@ -1,6 +1,6 @@
 test("Test img vanity", function() {
   var actual = el.img({'src':'http://placekitten.com/200/300'})
-  var expected = el.create('img', {'src':'http://placekitten.com/200/300'})
+  var expected = el('img', {'src':'http://placekitten.com/200/300'})
   
   equal(actual.tagName, expected.tagName, 'tag name was the same')
   equal(actual.getAttribute('src'), expected.getAttribute('src'), 'src attribute was the same')
@@ -9,7 +9,7 @@ test("Test img vanity", function() {
 
 test("Test a vanity", function() {
   var actual = el.a({'href':'https://github.com/markgandolfo/el.js'})
-  var expected = el.create('a', {'href':'https://github.com/markgandolfo/el.js'})
+  var expected = el('a', {'href':'https://github.com/markgandolfo/el.js'})
   
   equal(actual.tagName, expected.tagName, 'tag name was the same')
   equal(actual.getAttribute('href'), expected.getAttribute('href'), 'href attribute was the same')
@@ -19,7 +19,7 @@ test("Test a vanity", function() {
 
 test("Test div vanity", function() {
   var actual = el.div({'class':'a_box_of_tricks'})
-  var expected = el.create('div', {'class':'a_box_of_tricks'})
+  var expected = el('div', {'class':'a_box_of_tricks'})
   
   equal(actual.tagName, expected.tagName, 'tag name was the same')
   equal(actual.class, expected.class, 'classes were the same')
@@ -29,7 +29,7 @@ test("Test div vanity", function() {
 
 test("Test p vanity", function() {
   var actual = el.p({'class':'a_box_of_tricks'})
-  var expected = el.create('p', {'class':'a_box_of_tricks'})
+  var expected = el('p', {'class':'a_box_of_tricks'})
   
   equal(actual.tagName, expected.tagName, 'tag name was the same')
   equal(actual.class, expected.class, 'classes were the same')
@@ -39,7 +39,7 @@ test("Test p vanity", function() {
 
 test("Test input vanity", function() {
   var actual = el.input({'class':'a_box_of_tricks'})
-  var expected = el.create('input', {'class':'a_box_of_tricks'})
+  var expected = el('input', {'class':'a_box_of_tricks'})
   
   equal(actual.tagName, expected.tagName, 'tag name was the same')
   equal(actual.class, expected.class, 'classes were the same');
@@ -49,7 +49,7 @@ test("Test input vanity", function() {
 
 test("Test short tag for create", function() {
   var actual = el.c('div', {'class':'a_box_of_tricks'})
-  var expected = el.create('div', {'class':'a_box_of_tricks'})
+  var expected = el('div', {'class':'a_box_of_tricks'})
   
   equal(actual.tagName, expected.tagName, 'tag name was the same')
   equal(actual.class, expected.class, 'classes were the same')

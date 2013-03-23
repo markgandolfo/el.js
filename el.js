@@ -31,7 +31,6 @@ window.el = (function () {
     // run the pattern over the tagname an attempt to pull out class & id attributes
     // shift the first record out as it's the element name
     matched = tagName.match(pattern);
-    console.log(tagName);
     tagName = matched[0];
     matched.shift();
     
@@ -66,7 +65,6 @@ window.el = (function () {
             var doneCallback = function doneCallback(content) {
               if (!discardDoneCallbackResult) {
                 el.appendChild(content);
-                console.log(el, content);
               }
             }
             var result = child.apply(null, [doneCallback])
@@ -89,8 +87,9 @@ window.el = (function () {
         el.setAttribute(key, attrs[key]);
       }
     }
-  return el;
-};
+
+    return el;
+  };
   
   // alias
   el.create = el.c = el;

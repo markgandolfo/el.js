@@ -4,48 +4,101 @@ Simple Javascript library used to create elements.
 
 ## Examples:
 
+### Creation of elements
+
 Create a simple element without attributes
 
-    el.create('div')
+    el('div')
     => <div></div>
 
-Create an element with content inside and a class
+Some vanity methods/aliases to help you create elements quickly
 
-    el.create('a', {'class':'content', 'href':'http://markgandolfo.com', 'content':'Mark Gandolfo'})
-    => <a class="content" href="http://markgandolfo.com">Mark Gandolfo</a>
-
-You could even use selectors in the initial name to quick create with id's and classes
-
-    el.create('div#myId.content')
-    => <div id="myId" class="content"></div>
-
-    el.create('div.row')
-    => <div class="row"></div>
-    
-    el.create('div.row', {'id':'myId', 'content':'Some content in your div'})
-    => <div id="myId" class="row">Some content in your div</div>
-
-Create a child and parent element
-
-    img = el.create('img', {'src':'http://placekitten.com/200/300'})
-    el.create('a', {'href':'http://markgandolfo.com', 'content':img})
-    => <a href="http://markgandolfo.com"><img src="http://placekitten.com/200/300" /></a>
-
-Create data-attributes (or any other attributes)
-
-    el.create('div', {'data-action':'submit', 'id':'myId'})
-    => <div data-action="submit" id="myId"></div>
-
-
-### Helper Methods
-These can be used standalone, or you could pass attributes in as an argument
-
-    el.c() - This is an alias of el.create()
+    # Vanity helpers
     el.div()
     el.p()
     el.input()
     el.img({'src':'http://placekitten.com/200/300'})
     el.a({'src':'http://placekitten.com/200/300'})
+
+For backwards compatibility you can still access el() via the older create methods
+
+    el.create()
+    el.c()
+
+### Lets add some content on creation of elements
+
+There are a few ways to create elements with content inside. The easiest way is to pass it in via the second parameter
+
+    el('div', 'Some content')
+    => <div>Some content</div>
+    
+If you pass in a html node as the second attribute, it'll be added as a child
+
+    el('ul',
+      el('li', 'item 1')
+    )
+    => <ul><li>item 1</li></ul>
+
+If you want to create a set of li's then you can pass in an array
+
+    el('ul', [
+      el('li', 'item 1'),
+      el('li', 'item 2'),
+      el('li', 'item 3'),
+      el('li', 'item 4'),
+      el('li', 'item 5'),
+      el('li', 'item 6')
+      ]
+    )
+    => <ul><li>item 1</li><li>item 2</li><li>item 3</li><li>item 4</li><li>item 5</li><li>item 6</li></ul>
+
+For backwards compatibility you can still add content via 'content'
+
+    el('li', {'content':'item 1'})
+
+
+### Add attributes to your elements
+
+You could use selectors in the initial name to quick create with id's and classes
+
+    el('div#myId.content')
+    => <div id="myId" class="content"></div>
+
+    el('div.row')
+    => <div class="row"></div>
+
+el also allows a key:value json object to be passed through as the second attribute
+
+    el('div.row', {'id':'myId', 'class':'my_class'})
+    => <div id="myId" class="my_class row"></div>
+
+    el('a', {'class':'content', 'href':'https://github.com/markgandolfo/el.js', } 'content' )
+    => <a class="content" href="https://github.com/markgandolfo/el.js">el.js</a>
+
+Create data-attributes (or any other attributes)
+
+    el('div', {'data-action':'submit', 'id':'myId'})
+    => <div data-action="submit" id="myId"></div>
+
+### Callbacks:
+
+You can now pass a function in as a callback. 
+
+    el('div', function(done) {
+      console.log('this will be called after the creation of the div');
+    })
+
+### Examples of creating elements with id, classes, attributes, content and callbacks
+
+    el('ul.navbar', {'data-name':'navigation'}, [
+      el('li', 'item 1'), 
+      el('li', 'item 1'), 
+      function(element) {
+        this.addEventListener('click', function() {
+          console.log('clicking on the navigation');
+        })
+      }]
+    )
 
 ## Contributors
 [modsognir](https://github.com/modsognir)

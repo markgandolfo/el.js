@@ -1,5 +1,5 @@
 test("Creating a basic element", function() {
-  var actual = el.create('div')
+  var actual = el('div')
   var expected = document.createElement('div')
 
   equal(actual.tagName, expected.tagName, 'tagNames match')
@@ -19,7 +19,7 @@ test('use the constructor for el instead of calling the function', function() {
 });
 
 test("Create an element with mixed attributes", function() {
-  var actual = el.create('a', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow'}, 'el.js ftw')
+  var actual = el('a', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow'}, 'el.js ftw')
   var expected = document.createElement('a')
   expected.className = 'my classes'
   expected.id = 'myId'
@@ -38,7 +38,7 @@ test("Create an element with mixed attributes", function() {
 });
 
 test("Create an element with selector elements and watch them merge", function() {
-  var actual = el.create('a#my2ndId.mySecond-class', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow'}, 'el.js ftw')
+  var actual = el('a#my2ndId.mySecond-class', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow'}, 'el.js ftw')
   var expected = document.createElement('a')
   expected.className = 'my classes mySecond-class'
   expected.id = 'myId my2ndId'
@@ -56,8 +56,8 @@ test("Create an element with selector elements and watch them merge", function()
 });
 
 test("Test nested tags", function() {
-  var img = el.create('img', {'src':'http://placekitten.com/200/300'})
-  var actual = el.create('a', {'href':'https://github.com/markgandolfo/el.js'}, img)
+  var img = el('img', {'src':'http://placekitten.com/200/300'})
+  var actual = el('a', {'href':'https://github.com/markgandolfo/el.js'}, img)
 
   var imgExpected = document.createElement('img')
   var expected = document.createElement('a')
@@ -82,13 +82,13 @@ test('el without the .create', function() {
 });
 
 test("Test multiple children", function() {
-  var list = el.create(
+  var list = el(
     'ul',
     {'class': 'someclass'},
     [
-      el.create('li', {"class": "active"}, "first"),
-      el.create('li', null, "second"),
-      el.create('li', null, "third")
+      el('li', {"class": "active"}, "first"),
+      el('li', null, "second"),
+      el('li', null, "third")
     ]
   );
 
@@ -101,7 +101,7 @@ test("Test multiple children", function() {
 test("Test function as a content provider", function() {
 
   var actual, expected;
-  actual = el.create('div', {}, function() {
+  actual = el('div', {}, function() {
     return el('span');
   });
 
@@ -109,7 +109,7 @@ test("Test function as a content provider", function() {
 
   equal(actual.outerHTML, expected, 'Content created with sync callback');
   
-  actual = el.create('div', {}, function(done) {
+  actual = el('div', {}, function(done) {
     done(el('span'));
   });
 
@@ -117,7 +117,7 @@ test("Test function as a content provider", function() {
 
   equal(actual.outerHTML, expected, 'Content created with async callback');
   
-  actual = el.create('div', {}, [
+  actual = el('div', {}, [
     function(done) {
       done(el('span.fromAsyncCallback'));
     },
@@ -131,13 +131,12 @@ test("Test function as a content provider", function() {
 
   expected = '<div><span class=\"fromAsyncCallback\"></span><span class=\"fromCallback\"></span><span class=\"fromLiteral\"></span>plain text content</div>';
   equal(actual.outerHTML, expected, 'Content created with mixed content providers');
-
 });
 
 asyncTest('Test async content provider function', function() {
   var actual, expected;
   expected = '<div><span class="fromAsyncCallback"></span><span class="fromCallback"></span><span class="fromLiteral"></span>plain text content<span class="fromTimeoutAsyncCallback"></span></div>';
-  actual = el.create('div', {}, [
+  actual = el('div', {}, [
     function(done) {
       done(el('span.fromAsyncCallback'));
     },
@@ -156,15 +155,13 @@ asyncTest('Test async content provider function', function() {
     el('span.fromLiteral'), 
     'plain text content'
   ]);
-
-
 });
 
 asyncTest('Test async content provider function 2', function() {
   var actual, expected;
   expected = '<div><span class="one"></span><span class="three"></span></div>';
 
-  actual = el.create('div', {}, [
+  actual = el('div', {}, [
     function(){
       return el('span.one');
     },
@@ -214,5 +211,4 @@ test('Variadic create with two args', function() {
   expected = '<div><span></span></div>';
   
   equal(actual.outerHTML, expected, 'div with one span from done callback created');  
-  
 });
