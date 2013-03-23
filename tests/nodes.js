@@ -8,6 +8,16 @@ test("Creating a basic element", function() {
   equal(actual.attributes.length, expected.attributes.length, 'attributes length matches')
 });
 
+test('use the constructor for el instead of calling the function', function() {
+  var actual, expected;
+  actual = el('a', {'href':'https://github.com/markgandolfo/el.js'});
+  expected = document.createElement('a');
+  expected.href = 'https://github.com/markgandolfo/el.js';
+  
+  equal(actual.tagName, expected.tagName);
+  equal(actual.href, expected.href);
+});
+
 test("Create an element with mixed attributes", function() {
   var actual = el.create('a', {'class': 'my classes', 'id':'myId', 'href':'https://github.com/markgandolfo/el.js', 'rel':'nofollow'}, 'el.js ftw')
   var expected = document.createElement('a')

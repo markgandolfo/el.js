@@ -49,6 +49,7 @@ These can be used standalone, or you could pass attributes in as an argument
 
 ## Contributors
 [modsognir](https://github.com/modsognir)
+[thesebas](https://github.com/thesebas)
 
 ## Contributing
 
