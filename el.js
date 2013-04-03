@@ -13,15 +13,15 @@ window.el = (function () {
     var pattern = /([a-z]+|#[\w-\d]+|\.[\w\d-]+)/g
 
     if(arguments.length === 2) {
-      if(attrs instanceof Array 
-      || typeof attrs === 'function' 
+      if(attrs instanceof Array
+      || typeof attrs === 'function'
       || typeof attrs === 'string'
       || attrs.constructor !== Object
       ) {
         child = attrs;
         attrs = undefined;
       }
-      
+
     }
     // does the user pass attributes in, if not set an empty object up
     attrs = typeof attrs !== 'undefined' ? attrs : {};
@@ -33,7 +33,7 @@ window.el = (function () {
     matched = tagName.match(pattern);
     tagName = matched[0];
     matched.shift();
-    
+
     // Iterate over the matches and concat the attrs to either class or id keys in attrs json object
     for (var m in matched) {
       if(matched[m][0] == '.') {
@@ -79,7 +79,7 @@ window.el = (function () {
             //???
         }
       }(child[i]));
-      
+
     }
 
     for (var key in attrs) {
@@ -90,29 +90,29 @@ window.el = (function () {
 
     return el;
   };
-  
+
   // alias
   el.create = el.c = el;
-  
+
   // vanity methods
   el.img = function(attrs) {
     return this.create('img', attrs);
   };
-    
+
   el.a = function(attrs, child) {
-    return this.create('a', attrs);
+    return this.create('a', attrs, child);
   };
-  
+
   el.div = function(attrs, child) {
-    return this.create('div', attrs);
+    return this.create('div', attrs, child);
   };
-  
+
   el.p = function(attrs, child) {
-    return this.create('p', attrs);
+    return this.create('p', attrs, child);
   };
-  
+
   el.input = function(attrs, child) {
-    return this.create('input', attrs);
+    return this.create('input', attrs, child);
   };
 
   return el;
