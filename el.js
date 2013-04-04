@@ -112,7 +112,7 @@ window.el = (function () {
   };
 
   el.input = function(attrs, child) {
-    return this.create('input', attrs, child);
+    return this.create('input', attrs);
   };
 
   return el;
