@@ -54,11 +54,11 @@ test("Test short tag for create", function() {
 });
 
 test("Test nested tags", function() {
-  var a, img, actual, imgExpected, expected, aExpected
+  var a, img, actual, aExpected, imgExpected, expected
 
   img = el.img({'src':'http://placekitten.com/200/300'})
   a = el.a({'href':'https://github.com/markgandolfo/el.js'}, img)
-  actual = el.div(img)
+  actual = el.div({}, a)
 
   imgExpected = document.createElement('img')
   aExpected = document.createElement('a')
@@ -69,7 +69,6 @@ test("Test nested tags", function() {
   aExpected.appendChild(imgExpected);
   expected.appendChild(aExpected);
 
-  equal(actual.innerHTML, expected.innerHTML, 'Child object was placed correctly inside of the parent using vanity')
   equal(actual.outerHTML, expected.outerHTML, 'Full nested vanity elements worked')
 });
 
