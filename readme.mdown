@@ -1,6 +1,6 @@
 ## el.js
 
-Simple Javascript library used to create elements. 
+Simple Javascript library used to create elements, no other libraries required
 
 ## Examples:
 
