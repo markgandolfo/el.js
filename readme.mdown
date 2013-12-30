@@ -104,6 +104,10 @@ You can now pass a function in as a callback.
 [modsognir](https://github.com/modsognir)
 [thesebas](https://github.com/thesebas)
 
+## License
+
+See the license file
+
 ## Contributing
 
 1. Fork it
