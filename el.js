@@ -21,14 +21,14 @@ window.el = (function () {
         child = attrs;
         attrs = undefined;
       }
-
     }
+
     // does the user pass attributes in, if not set an empty object up
     attrs = typeof attrs !== 'undefined' ? attrs : {};
     child = typeof child !== 'undefined' ? child : [];
     child = child instanceof Array ? child : [child];
 
-    // run the pattern over the tagname an attempt to pull out class & id attributes
+    // run the pattern over the tagname in an attempt to pull out class & id attributes
     // shift the first record out as it's the element name
     matched = tagName.match(pattern);
     tagName = matched[0];
@@ -79,7 +79,6 @@ window.el = (function () {
             //???
         }
       }(child[i]));
-
     }
 
     for (var key in attrs) {
